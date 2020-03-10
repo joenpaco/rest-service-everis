@@ -1,8 +1,10 @@
 package com.joenpaco.auth.filter;
 
 import java.io.IOException;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.FilterChain;
@@ -87,6 +89,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		body.put("token", token);
 		body.put("user", (User) authResult.getPrincipal());
 		body.put("mensaje", String.format("Hola %s, has iniciado sesión con éxito!", ((User)authResult.getPrincipal()).getUsername()) );
+		body.put("last_login", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(200);
