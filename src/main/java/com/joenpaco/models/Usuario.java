@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,9 +21,13 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@EntityListeners(value = { AuditingEntityListener.class })
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,7 +48,15 @@ public class Usuario implements Serializable {
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@CreatedDate
 	private Date creatAt;
+	
+	@Column(name = "updated_at")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@LastModifiedDate
+	private Date updatedAt;
+	
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Role> roles;
@@ -55,11 +68,7 @@ public class Usuario implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Phone> phones;
 	
-	@PrePersist
-	public void prePersist() {
-		creatAt = new Date();
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -126,6 +135,14 @@ public class Usuario implements Serializable {
 
 	public void setPhones(List<Phone> phones) {
 		this.phones = phones;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }
