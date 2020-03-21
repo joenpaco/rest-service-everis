@@ -38,7 +38,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping(value = {"/listar", "/"})
-	public List<Usuario> findAllClientes(Authentication authentication, HttpServletRequest request) {
+	public List<Usuario> findAllUsuarios(Authentication authentication, HttpServletRequest request) {
 		
 		if (authentication != null) {
 			logger.info("Hola usuario autenticado, tu username es: ".concat(authentication.getName()));
