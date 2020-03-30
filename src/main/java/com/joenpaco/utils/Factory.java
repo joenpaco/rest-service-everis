@@ -43,7 +43,7 @@ public class Factory {
 		
 		Usuario[] arrayUsuarios = {usuario, usuario1, usuario2};
 
-		List<Usuario> usuarios = Arrays.asList (arrayUsuarios);;
+		List<Usuario> usuarios = Arrays.asList (arrayUsuarios);
 		
 		return usuarios;
 	}
