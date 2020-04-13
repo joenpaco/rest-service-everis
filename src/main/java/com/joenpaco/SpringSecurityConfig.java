@@ -1,5 +1,7 @@
 package com.joenpaco;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +11,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.joenpaco.auth.filter.JWTAuthenticationFilter;
 import com.joenpaco.auth.filter.JWTAuthorizationFilter;
-//import com.joenpaco.auth.handler.LoginSuccessHandler;
 import com.joenpaco.auth.services.JWTService;
 import com.joenpaco.services.impl.UsuarioServiceImpl;
 
@@ -43,6 +47,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtService))
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		http.cors().and();
 
 	}
 
@@ -53,5 +59,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		.passwordEncoder(passwordEncoder());
 
 	}
+	
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() 
+    {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 	
 }

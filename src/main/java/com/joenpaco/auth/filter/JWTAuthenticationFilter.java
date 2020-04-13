@@ -19,14 +19,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joenpaco.auth.services.JWTService;
 import com.joenpaco.auth.services.JWTServiceImpl;
 import com.joenpaco.models.Usuario;
-
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 

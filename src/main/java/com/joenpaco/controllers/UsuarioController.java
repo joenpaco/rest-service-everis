@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.joenpaco.models.Usuario;
 import com.joenpaco.services.UsuarioService;
 
-
 @RestController
 public class UsuarioController {
 	
@@ -37,6 +36,8 @@ public class UsuarioController {
 		
 	}
 	
+	
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = {"/listar", "/"})
 	public List<Usuario> findAllUsuarios(Authentication authentication, HttpServletRequest request) {
 		
