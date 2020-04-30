@@ -36,8 +36,6 @@ public class UsuarioController {
 		
 	}
 	
-	
-	@Secured("ROLE_ADMIN")
 	@GetMapping(value = {"/listar", "/"})
 	public List<Usuario> findAllUsuarios(Authentication authentication, HttpServletRequest request) {
 		
