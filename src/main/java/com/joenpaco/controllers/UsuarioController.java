@@ -36,6 +36,7 @@ public class UsuarioController {
 		
 	}
 	
+
 	@GetMapping(value = {"/listar", "/"})
 	public List<Usuario> findAllUsuarios(Authentication authentication, HttpServletRequest request) {
 		
